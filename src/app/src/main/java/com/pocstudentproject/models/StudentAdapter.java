@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pocstudentproject.studentpocproject.R;
@@ -41,6 +43,7 @@ public class StudentAdapter extends ArrayAdapter<Student> {
             viewHolder.textAge = (TextView) convertView.findViewById(R.id.txtAge);
             viewHolder.textAddress = (TextView) convertView.findViewById(R.id.txtAddress);
             viewHolder.studentImage = (ImageView) convertView.findViewById(R.id.imgFoto);
+            viewHolder.btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
@@ -49,6 +52,14 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         viewHolder.titleName.setText(student.getNome());
         viewHolder.textAge.setText(student.getIdade().toString());
         viewHolder.textAddress.setText(student.getEndereco());
+        viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View parentRow = (View) v.getParent();
+                ListView listView = (ListView) parentRow.getParent();
+                final int position = listView.getPositionForView(parentRow);
+            }
+        });
         Picasso.with(getContext()).load(student.getFotoUrl()).into(viewHolder.studentImage);
 
         return convertView;
@@ -59,5 +70,6 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         TextView titleName;
         TextView textAge;
         TextView textAddress;
+        Button btnDelete;
     }
 }

@@ -1,11 +1,10 @@
 package com.pocstudentproject.studentpocproject;
 
 import android.app.Activity;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.pocstudentproject.models.Student;
 import com.pocstudentproject.models.StudentAdapter;
 import com.pocstudentproject.models.StudentListWrapper;
@@ -27,8 +26,8 @@ public class MainActivity extends Activity {
     @ViewById(R.id.listStudents)
     ListView studentsList;
 
-//    @ViewById(R.id.btnRequest)
-//    Button btnRequest;
+    @ViewById(R.id.pink_icon)
+    FloatingActionButton floatingActionButton;
 
     StudentAdapter studentsAdapter;
 
@@ -41,14 +40,13 @@ public class MainActivity extends Activity {
         RequestStudentData();
     }
 
-//    @Click(R.id.btnRequest)
-//    void requestButton() {
-//
-//    }
+    @Click(R.id.pink_icon)
+    void floatAction() {
+        Toast.makeText(this, "Intent Tela Adicionar novo Student", Toast.LENGTH_SHORT).show();
+    }
 
     @UiThread
-    void updateUi(List<Student> students)
-    {
+    void updateUi(List<Student> students) {
         studentsAdapter = new StudentAdapter(this, R.layout.student_listview, students);
         studentsList.setAdapter(studentsAdapter);
     }
@@ -57,13 +55,14 @@ public class MainActivity extends Activity {
     void RequestStudentData() {
         StudentListWrapper studentListWrapper = serviceRest.getStudents();
 
-        if (studentListWrapper != null){
+        if (studentListWrapper != null) {
             updateUi(studentListWrapper.getStudents());
         }
 
-
+//metodo delete
 //        serviceRest.removeStudent("AjoYF598sQ");
 
+        //metodo create new student
 //        Student newStudent = new Student() {
 //            {
 //                setEndereco("rua das oliveiras");
@@ -74,6 +73,10 @@ public class MainActivity extends Activity {
 //            }
 //        };
 //        serviceRest.createStudent(newStudent);
+
+    }
+
+    void deleteStudent(int position) {
 
     }
 }
