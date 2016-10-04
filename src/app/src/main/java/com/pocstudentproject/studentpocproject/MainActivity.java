@@ -27,27 +27,24 @@ public class MainActivity extends Activity {
     @ViewById(R.id.listStudents)
     ListView studentsList;
 
-    @ViewById(R.id.btnRequest)
-    Button btnRequest;
+//    @ViewById(R.id.btnRequest)
+//    Button btnRequest;
 
     StudentAdapter studentsAdapter;
-    List<Student> students;
 
     @RestService
     ServiceRest serviceRest;
 
-    String[] mobileArray = {"Android", "IPhone", "WindowsMobile", "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X"};
-
 
     @AfterViews
-    void content() {
-
+    void init() {
+        RequestStudentData();
     }
 
-    @Click(R.id.btnRequest)
-    void requestButton() {
-        JSONAnnotations();
-    }
+//    @Click(R.id.btnRequest)
+//    void requestButton() {
+//
+//    }
 
     @UiThread
     void updateUi(List<Student> students)
@@ -57,14 +54,10 @@ public class MainActivity extends Activity {
     }
 
     @Background
-    void JSONAnnotations() {
+    void RequestStudentData() {
         StudentListWrapper studentListWrapper = serviceRest.getStudents();
 
-
-
         if (studentListWrapper != null){
-            Log.d("TESTE", studentListWrapper.getStudents().get(0).getEndereco());
-
             updateUi(studentListWrapper.getStudents());
         }
 

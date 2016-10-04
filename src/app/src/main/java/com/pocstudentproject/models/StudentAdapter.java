@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pocstudentproject.studentpocproject.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         viewHolder.titleName.setText(student.getNome());
         viewHolder.textAge.setText(student.getIdade().toString());
         viewHolder.textAddress.setText(student.getEndereco());
+        Picasso.with(getContext()).load(student.getFotoUrl()).into(viewHolder.studentImage);
 
         return convertView;
     }
